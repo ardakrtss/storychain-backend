@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { BookOpen, Users, Sparkles, ArrowRight, Star, Heart } from 'lucide-react'
 
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
@@ -24,20 +23,10 @@ export default function Home() {
               <Link href="#themes" className="text-gray-600 hover:text-purple-600 transition-colors">
                 Temalar
               </Link>
-              <Link href="#about" className="text-gray-600 hover:text-purple-600 transition-colors">
-                Hakkında
-              </Link>
             </nav>
             <div className="flex items-center space-x-4">
-              {/* <NotificationBell /> */}
               <Link 
-                href="/login" 
-                className="text-gray-600 hover:text-purple-600 transition-colors"
-              >
-                Giriş Yap
-              </Link>
-              <Link 
-                href="/register" 
+                href="/stories/create" 
                 className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:shadow-lg transition-all duration-200"
               >
                 Başla
@@ -69,18 +58,12 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-
               <Link 
                 href="/stories/create" 
-                className="border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-purple-50 transition-all duration-200"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2"
               >
-                Hikaye Yazmaya Başla
-              </Link>
-              <Link 
-                href="/stories" 
-                className="bg-white text-purple-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-50 transition-all duration-200 border border-purple-200"
-              >
-                Hikayeleri Keşfet
+                <span>Hikaye Yazmaya Başla</span>
+                <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </div>
@@ -155,12 +138,12 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: 'Fantastik', icon: '🧙‍♂️', color: 'from-purple-500 to-purple-600', desc: 'Büyülü dünyalar ve sihirli yaratıklar' },
+              { name: 'Fantastik', icon: '🧙‍♂️', color: 'from-purple-500 to-purple-600', desc: 'Büyülü dünyalar ve yaratıklar' },
+              { name: 'Bilim Kurgu', icon: '🚀', color: 'from-cyan-500 to-cyan-600', desc: 'Gelecek ve teknoloji' },
               { name: 'Gizem', icon: '🔍', color: 'from-blue-500 to-blue-600', desc: 'Gizemli olaylar ve keşifler' },
-              { name: 'Bilim Kurgu', icon: '🚀', color: 'from-cyan-500 to-cyan-600', desc: 'Gelecek teknolojileri ve uzay' },
               { name: 'Macera', icon: '🗺️', color: 'from-green-500 to-green-600', desc: 'Tehlikeli yolculuklar ve kahramanlar' },
-              { name: 'Sıfır Atık', icon: '♻️', color: 'from-emerald-500 to-emerald-600', desc: 'Çevre dostu yaşam' },
-              { name: 'İklim Değişikliği', icon: '🌍', color: 'from-teal-500 to-teal-600', desc: 'İklim sorunları ve çözümler' }
+              { name: 'Komedi', icon: '😄', color: 'from-yellow-500 to-yellow-600', desc: 'Eğlenceli ve gülünç hikayeler' },
+              { name: 'Dostluk', icon: '🤝', color: 'from-pink-500 to-pink-600', desc: 'Arkadaşlık ve dayanışma' }
             ].map((theme, index) => (
               <div key={index} className="bg-white rounded-2xl p-6 hover:shadow-lg transition-all duration-200 cursor-pointer group">
                 <div className={`w-16 h-16 bg-gradient-to-r ${theme.color} rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-200`}>
@@ -204,7 +187,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
@@ -221,30 +204,9 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/stories" className="hover:text-white transition-colors">Hikayeler</Link></li>
-                <li><Link href="/themes" className="hover:text-white transition-colors">Temalar</Link></li>
-                <li><Link href="/leaderboard" className="hover:text-white transition-colors">Sıralama</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">Hakkında</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Destek</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/help" className="hover:text-white transition-colors">Yardım</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">İletişim</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition-colors">Gizlilik</Link></li>
-                <li><Link href="/terms" className="hover:text-white transition-colors">Şartlar</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Topluluk</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="/events" className="hover:text-white transition-colors">Etkinlikler</Link></li>
-                <li><Link href="/feedback" className="hover:text-white transition-colors">Geri Bildirim</Link></li>
-                <li><Link href="/contribute" className="hover:text-white transition-colors">Katkıda Bulun</Link></li>
+                <li><Link href="/stories/create" className="hover:text-white transition-colors">Hikaye Yaz</Link></li>
+                <li><Link href="#themes" className="hover:text-white transition-colors">Temalar</Link></li>
+                <li><Link href="#features" className="hover:text-white transition-colors">Özellikler</Link></li>
               </ul>
             </div>
           </div>
