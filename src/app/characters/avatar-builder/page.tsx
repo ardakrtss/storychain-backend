@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Download, RotateCcw, Check } from 'lucide-react';
-import { useCharacter } from '@/hooks/useCharacter';
+
 
 interface AvatarPart {
   id: string;
@@ -60,7 +60,7 @@ const avatarParts: AvatarPart[] = [
 ];
 
 export default function AvatarBuilderPage() {
-  const { selectCharacter } = useCharacter();
+  // const { selectCharacter } = useCharacter();
   const [selectedParts, setSelectedParts] = useState<Record<string, string>>({
     hair: 'hair-1',
     eyes: 'eyes-1',
@@ -85,7 +85,8 @@ export default function AvatarBuilderPage() {
       customParts: selectedParts
     };
     
-    selectCharacter(customCharacter);
+    // selectCharacter(customCharacter);
+    console.log('Character saved:', customCharacter);
   };
 
   const handleReset = () => {

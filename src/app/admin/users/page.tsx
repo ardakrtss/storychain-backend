@@ -308,7 +308,7 @@ export default function AdminUsersPage() {
                 
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
+                  onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'name' | 'activity')}
                   className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
                   <option value="newest">En Yeni</option>
@@ -378,7 +378,7 @@ export default function AdminUsersPage() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <select
                             value={user.role}
-                            onChange={(e) => handleRoleChange(user.id, e.target.value as any)}
+                            onChange={(e) => handleRoleChange(user.id, e.target.value as 'user' | 'moderator' | 'admin')}
                             className={`px-2 py-1 text-xs font-medium rounded-full ${getRoleColor(user.role)} border-0 focus:ring-2 focus:ring-purple-500`}
                           >
                             <option value="user">Kullanıcı</option>
@@ -390,7 +390,7 @@ export default function AdminUsersPage() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <select
                             value={user.status}
-                            onChange={(e) => handleStatusChange(user.id, e.target.value as any)}
+                            onChange={(e) => handleStatusChange(user.id, e.target.value as 'active' | 'suspended' | 'banned')}
                             className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(user.status)} border-0 focus:ring-2 focus:ring-purple-500`}
                           >
                             <option value="active">Aktif</option>

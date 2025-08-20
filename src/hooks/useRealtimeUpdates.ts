@@ -12,7 +12,7 @@ import {
   DocumentData,
   QuerySnapshot
 } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../lib/firebase';
 import { useNotifications } from './useNotifications';
 
 export interface RealtimeStory {

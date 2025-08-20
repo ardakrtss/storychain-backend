@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Send, BookOpen, User, Calendar, Tag, Sparkles } from 'lucide-react';
-import { useCharacter } from '@/hooks/useCharacter';
+import { useCharacter } from '../../../../hooks/useCharacter';
 
 interface StorySegment {
   id: string;

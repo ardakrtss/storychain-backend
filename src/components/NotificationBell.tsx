@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, X, Check, Trash2, Settings } from 'lucide-react';
-import { useNotifications, Notification } from '@/hooks/useNotifications';
+import { useNotifications, Notification } from '../hooks/useNotifications';
 
 export default function NotificationBell() {
   const { notifications, unreadCount, markAsRead, markAllAsRead, deleteNotification } = useNotifications();

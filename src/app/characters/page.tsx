@@ -216,12 +216,7 @@ export default function CharactersPage() {
               </div>
             </div>
             <div className="mt-4 flex flex-wrap gap-3">
-              <Link
-                href="/characters/avatar-builder"
-                className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200"
-              >
-                Avatar Builder
-              </Link>
+
               <Link
                 href="/stories/create"
                 className="bg-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors"

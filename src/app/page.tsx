@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { BookOpen, Users, Sparkles, ArrowRight, Star, Heart } from 'lucide-react'
-import NotificationBell from '@/components/NotificationBell'
+
 
 export default function Home() {
   return (
@@ -29,7 +29,7 @@ export default function Home() {
               </Link>
             </nav>
             <div className="flex items-center space-x-4">
-              <NotificationBell />
+              {/* <NotificationBell /> */}
               <Link 
                 href="/login" 
                 className="text-gray-600 hover:text-purple-600 transition-colors"

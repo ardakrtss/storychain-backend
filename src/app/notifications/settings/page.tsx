@@ -13,7 +13,7 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react';
-import { useNotifications } from '@/hooks/useNotifications';
+import { useNotifications } from '../../../hooks/useNotifications';
 
 export default function NotificationSettingsPage() {
   const { settings, updateSettings, requestPermission } = useNotifications();

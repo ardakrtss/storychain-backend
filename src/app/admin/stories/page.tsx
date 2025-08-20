@@ -325,7 +325,7 @@ export default function AdminStoriesPage() {
                 
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
+                  onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'popular' | 'views')}
                   className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
                   <option value="newest">En Yeni</option>
@@ -414,7 +414,7 @@ export default function AdminStoriesPage() {
                     <div className="flex space-x-2">
                       <select
                         value={story.status}
-                        onChange={(e) => handleStatusChange(story.id, e.target.value as any)}
+                        onChange={(e) => handleStatusChange(story.id, e.target.value as 'published' | 'pending' | 'rejected' | 'flagged')}
                         className={`flex-1 px-3 py-2 text-sm font-medium rounded-lg border-0 focus:ring-2 focus:ring-purple-500 ${getStatusColor(story.status)}`}
                       >
                         <option value="published">Yayınla</option>
