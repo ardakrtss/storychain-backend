@@ -1,49 +1,14 @@
-# StoryChain 📚
+# StoryChain Backend API
 
-StoryChain, çocukların birlikte hikaye yazabilecekleri interaktif bir platformdur. Her çocuk hikayenin bir bölümünü yazar ve sonunda ortaya harika bir hikaye çıkar.
+StoryChain için backend API servisi. Çocukların birlikte hikaye yazabilecekleri platformun API katmanı.
 
-## 🌟 Özellikler
+## 🚀 Deployment
 
-- **Birlikte Hikaye Yazma**: 5 farklı yazar bir hikayeyi birlikte tamamlar
-- **6 Farklı Tema**: Fantastik, Gizem, Bilim Kurgu, Macera, Sıfır Atık, İklim Değişikliği
-- **İçerik Moderasyonu**: Uygun olmayan içerikler otomatik olarak filtrelenir
-- **Admin Paneli**: Hikayeleri ve kullanıcıları yönetme
-- **Responsive Tasarım**: Mobil ve masaüstü uyumlu
+Bu API Render platformunda deploy edilmiştir:
+- **Production URL:** https://storychain-api.onrender.com
+- **Health Check:** https://storychain-api.onrender.com/api/health
 
-## 🚀 Kurulum
-
-### Gereksinimler
-- Node.js (v14 veya üzeri)
-- npm veya yarn
-
-### Backend Kurulumu
-```bash
-cd storychain/backend
-npm install
-npm start
-```
-
-### Frontend Kurulumu
-```bash
-cd storychain/frontend
-npm install
-npm run dev
-```
-
-## 📁 Proje Yapısı
-
-```
-storychain/
-├── backend/
-│   ├── test-server.js          # Ana API sunucusu
-│   └── contentModeration.js    # İçerik moderasyon modülü
-└── frontend/
-    ├── pages/                  # Next.js sayfaları
-    ├── components/             # React bileşenleri
-    └── styles/                 # CSS dosyaları
-```
-
-## 🔧 API Endpoints
+## 📋 API Endpoints
 
 ### Kullanıcı İşlemleri
 - `POST /api/auth/login` - Kullanıcı girişi
@@ -63,37 +28,39 @@ storychain/
 - `DELETE /api/admin/stories/:id` - Hikaye silme
 - `PUT /api/admin/stories/:id/approve` - Hikaye onaylama
 
-## 🎨 Temalar
+## 🔧 Teknolojiler
 
-1. **Fantastik** 🧙‍♂️ - Büyülü dünyalar ve sihirli yaratıklar
-2. **Gizem** 🔍 - Gizemli olaylar ve keşifler
-3. **Bilim Kurgu** 🚀 - Gelecek teknolojileri ve uzay
-4. **Macera** 🗺️ - Tehlikeli yolculuklar ve kahramanlar
-5. **Sıfır Atık** ♻️ - Çevre dostu yaşam
-6. **İklim Değişikliği** 🌍 - İklim sorunları ve çözümler
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **CORS** - Cross-origin resource sharing
+- **JWT** - JSON Web Tokens
+- **Content Moderation** - İçerik filtreleme
+
+## 🛠️ Geliştirme
+
+```bash
+# Bağımlılıkları yükle
+npm install
+
+# Geliştirme modunda çalıştır
+npm run dev
+
+# Production modunda çalıştır
+npm start
+```
 
 ## 🔒 Güvenlik
 
 - İçerik moderasyonu ile uygun olmayan içerikler filtrelenir
 - JWT token tabanlı kimlik doğrulama
-- Admin paneli güvenli erişim
+- CORS koruması
+- Input validation
 
-## 🤝 Katkıda Bulunma
+## 📊 Veritabanı
 
-1. Bu repository'yi fork edin
-2. Yeni bir branch oluşturun (`git checkout -b feature/yeni-ozellik`)
-3. Değişikliklerinizi commit edin (`git commit -am 'Yeni özellik eklendi'`)
-4. Branch'inizi push edin (`git push origin feature/yeni-ozellik`)
-5. Pull Request oluşturun
+Şu anda mock veriler kullanılmaktadır. Gelecekte Firebase Firestore entegrasyonu planlanmaktadır.
 
-## 📝 Lisans
+## 🌐 Frontend
 
-Bu proje MIT lisansı altında lisanslanmıştır.
-
-## 👥 Geliştirici
-
-StoryChain, çocukların yaratıcılığını geliştirmek ve birlikte çalışma becerilerini artırmak amacıyla geliştirilmiştir.
-
----
-
-**Not**: Bu proje şu anda geliştirme aşamasındadır. Test verileri kullanılmaktadır.
+Frontend uygulaması Netlify'da deploy edilmiştir:
+- **URL:** https://storychain-frontend.netlify.app

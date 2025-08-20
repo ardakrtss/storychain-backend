@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const { moderateContent, moderateTitle } = require('./contentModeration');
+const firebaseService = require('./services/firebaseService');
 
 const app = express();
 app.use(cors());
@@ -102,7 +103,15 @@ let storyIdCounter = 4;
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'StoryChain API is running' });
+  const firebaseStatus = firebaseService.isAvailable() ? 'connected' : 'disconnected';
+  res.json({ 
+    status: 'OK', 
+    message: 'StoryChain API is running',
+    version: '1.0.0',
+    environment: process.env.NODE_ENV || 'development',
+    database: firebaseStatus === 'connected' ? 'Firebase Firestore' : 'Mock Data',
+    firebase: firebaseStatus
+  });
 });
 
 // Simple login
@@ -561,7 +570,7 @@ app.get('/api/admin/stats', (req, res) => {
   }
 });
 
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
-  console.log(`Test server running on port ${PORT}`);
+  console.log(`StoryChain API server running on port ${PORT}`);
 });
