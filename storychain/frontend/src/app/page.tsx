@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link'
-import { BookOpen, Users, Sparkles, ArrowRight, Star, Heart } from 'lucide-react'
+import { BookOpen, Users, Sparkles, ArrowRight, Star } from 'lucide-react'
 
 export default function Home() {
   return (

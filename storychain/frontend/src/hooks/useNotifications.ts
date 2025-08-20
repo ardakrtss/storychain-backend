@@ -38,7 +38,7 @@ export function useNotifications() {
     if (savedNotifications) {
       try {
         const parsed = JSON.parse(savedNotifications);
-        setNotifications(parsed.map((n: any) => ({
+        setNotifications(parsed.map((n: { id: string; title: string; message: string; type: string; isRead: boolean; createdAt: string }) => ({
           ...n,
           createdAt: new Date(n.createdAt)
         })));

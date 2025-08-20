@@ -86,7 +86,7 @@ export default function CharactersPage() {
     
     // Load custom characters from localStorage
     const savedCharacters = JSON.parse(localStorage.getItem('storychain-custom-characters') || '[]');
-    const customCharacters = savedCharacters.map((char: any) => ({
+    const customCharacters = savedCharacters.map((char: { id: string; name: string; profession: string; image: string; description: string; createdAt: string }) => ({
       ...char,
       category: 'custom' as const,
       rating: 4.5
