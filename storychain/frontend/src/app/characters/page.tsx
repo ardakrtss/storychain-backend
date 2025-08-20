@@ -1,267 +1,241 @@
 'use client';
-import { useState, useEffect } from 'react';
+
+import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Sparkles, Plus, Heart, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Character {
   id: string;
   name: string;
   image: string;
   category: 'game' | 'tomodachi' | 'custom';
-  isFavorite?: boolean;
-  rating?: number;
-  profession?: string;
-  description?: string;
+  description: string;
 }
 
-const mockCharacters: Character[] = [
-  // Professional Avatar Characters
-  { 
-    id: 'artist', 
-    name: 'Sanatçı', 
-    image: '/characters/custom/parts/Artist colorful style icon.png', 
-    category: 'custom',
-    profession: 'Artist',
-    description: 'Yaratıcı ve hayal gücü yüksek sanatçı karakteri'
+const characters: Character[] = [
+  // Game Characters (Fantasy)
+  {
+    id: 'game-1',
+    name: 'Fantasy Warrior',
+    image: '/characters/game/PNG/2048/88.png',
+    category: 'game',
+    description: 'Güçlü savaşçı karakteri'
   },
-  { 
-    id: 'chef', 
-    name: 'Şef', 
-    image: '/characters/custom/parts/Chef avatar colorful style icon.png', 
-    category: 'custom',
-    profession: 'Chef',
-    description: 'Lezzetli hikayeler yaratan şef karakteri'
+  {
+    id: 'game-2',
+    name: 'Magic Wizard',
+    image: '/characters/game/PNG/2048/77.png',
+    category: 'game',
+    description: 'Sihirli büyücü'
   },
-  { 
-    id: 'firefighter', 
-    name: 'İtfaiyeci', 
-    image: '/characters/custom/parts/Firefighter colorful style icon.png', 
-    category: 'custom',
-    profession: 'Firefighter',
-    description: 'Cesur ve kahraman itfaiyeci karakteri'
+  {
+    id: 'game-3',
+    name: 'Brave Knight',
+    image: '/characters/game/PNG/2048/63.png',
+    category: 'game',
+    description: 'Cesur şövalye'
   },
-  { 
-    id: 'flight-attendant', 
-    name: 'Hostes', 
-    image: '/characters/custom/parts/Flight Attendance colorful style icon.png', 
-    category: 'custom',
-    profession: 'Flight Attendant',
-    description: 'Seyahat tutkunu hostes karakteri'
+  {
+    id: 'game-4',
+    name: 'Mystic Archer',
+    image: '/characters/game/PNG/2048/62.png',
+    category: 'game',
+    description: 'Gizemli okçu'
   },
-  { 
-    id: 'bus-driver', 
-    name: 'Otobüs Şoförü', 
-    image: '/characters/custom/parts/Bus Driver colorful style icon.png', 
-    category: 'custom',
-    profession: 'Bus Driver',
-    description: 'Yolculuk hikayeleri anlatan şoför karakteri'
+  {
+    id: 'game-5',
+    name: 'Dragon Rider',
+    image: '/characters/game/PNG/2048/76.png',
+    category: 'game',
+    description: 'Ejderha sürücüsü'
   },
-  { 
-    id: 'customer-service', 
-    name: 'Müşteri Hizmetleri', 
-    image: '/characters/custom/parts/Customer service colorful style icon.png', 
-    category: 'custom',
-    profession: 'Customer Service',
-    description: 'Yardımsever müşteri hizmetleri karakteri'
+  {
+    id: 'game-6',
+    name: 'Forest Guardian',
+    image: '/characters/game/PNG/2048/89.png',
+    category: 'game',
+    description: 'Orman koruyucusu'
   },
-  { 
-    id: 'gardener', 
-    name: 'Bahçıvan', 
-    image: '/characters/custom/parts/Gardener colorful style icon.png', 
+  // TOMODACHI 3D Avatars
+  {
+    id: 'tomodachi-1',
+    name: 'Happy Boy',
+    image: '/characters/tomodachi/PNG/Ordinary Character/1 - Ordinary Male - Happy - White.png',
+    category: 'tomodachi',
+    description: 'Mutlu erkek karakter'
+  },
+  {
+    id: 'tomodachi-2',
+    name: 'Neutral Girl',
+    image: '/characters/tomodachi/PNG/Ordinary Character/2 - Ordinary Female - Neutral - White.png',
+    category: 'tomodachi',
+    description: 'Sakin kız karakter'
+  },
+  {
+    id: 'tomodachi-3',
+    name: 'Happy Girl',
+    image: '/characters/tomodachi/PNG/Ordinary Character/1 - Ordinary Female - Neutral - White.png',
+    category: 'tomodachi',
+    description: 'Mutlu kız karakter'
+  },
+  {
+    id: 'tomodachi-4',
+    name: 'Dark Boy',
+    image: '/characters/tomodachi/PNG/Ordinary Character/3 - Ordinary Male - Happy - Black.png',
+    category: 'tomodachi',
+    description: 'Koyu tenli erkek'
+  },
+  // Custom Avatar Builder
+  {
+    id: 'custom-avatar',
+    name: 'Kendi Karakterim',
+    image: '/characters/custom/Examples.png',
     category: 'custom',
-    profession: 'Gardener',
-    description: 'Doğa ve büyüme hikayeleri anlatan bahçıvan'
+    description: 'Özelleştirilebilir avatar'
   }
 ];
 
+const categories = [
+  { id: 'all', name: 'Tümü', icon: '🌟' },
+  { id: 'game', name: 'Oyun Karakterleri', icon: '⚔️' },
+  { id: 'tomodachi', name: '3D Karakterler', icon: '🎨' },
+  { id: 'custom', name: 'Özel Karakter', icon: '🛠️' }
+];
+
 export default function CharactersPage() {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'custom'>('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [favorites, setFavorites] = useState<string[]>([]);
-  const [isClient, setIsClient] = useState(false);
-  const [allCharacters, setAllCharacters] = useState<Character[]>(mockCharacters);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
 
-  useEffect(() => {
-    setIsClient(true);
-    
-    // Load custom characters from localStorage
-    const savedCharacters = JSON.parse(localStorage.getItem('storychain-custom-characters') || '[]');
-    const customCharacters = savedCharacters.map((char: { id: string; name: string; profession: string; image: string; description: string; createdAt: string }) => ({
-      ...char,
-      category: 'custom' as const,
-      rating: 4.5
-    }));
-    
-    setAllCharacters([...mockCharacters, ...customCharacters]);
-  }, []);
+  const filteredCharacters = selectedCategory === 'all' 
+    ? characters 
+    : characters.filter(char => char.category === selectedCategory);
 
-  const filteredCharacters = allCharacters.filter(character => {
-    const matchesCategory = selectedCategory === 'all' || character.category === selectedCategory;
-    const matchesSearch = character.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (character.profession && character.profession.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesCategory && matchesSearch;
-  });
-
-  const toggleFavorite = (characterId: string) => {
-    setFavorites(prev => 
-      prev.includes(characterId) 
-        ? prev.filter(id => id !== characterId)
-        : [...prev, characterId]
-    );
+  const handleCharacterSelect = (character: Character) => {
+    setSelectedCharacter(character);
+    localStorage.setItem('selectedCharacter', JSON.stringify(character));
   };
 
-  const categories = [
-    { id: 'all', name: 'Tümü', count: allCharacters.length },
-    { id: 'custom', name: 'Avatar Karakterleri', count: allCharacters.filter(c => c.category === 'custom').length },
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+      <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-4">
-              <Link href="/" className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
-                <ArrowLeft className="h-5 w-5" />
-                <span>Ana Sayfa</span>
+              <Link href="/" className="text-gray-600 hover:text-gray-900">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
               </Link>
+              <h1 className="text-2xl font-bold text-gray-900">Karakter Seçimi</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <h1 className="text-xl font-bold text-gray-900">Karakterler</h1>
+            <div className="text-sm text-gray-500">
+              Hikaye yolculuğuna başlamak için karakterini seç!
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Karakterlerinizi Seçin
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Hikayelerinizde kullanmak için harika karakterler arasından seçim yapın. 
-            Her karakter kendine özgü kişiliği ve özellikleriyle hikayelerinizi canlandıracak.
-          </p>
-          
-          {/* Search and Filter */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Karakter ara..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
-              />
-              <Sparkles className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-            </div>
-            
-            <Link
-              href="/characters/avatar-builder"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
-            >
-              <Plus className="h-4 w-4" />
-              <span>Karakter Seç</span>
-            </Link>
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
+        {/* Category Filter */}
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Kategori Seç</h2>
+          <div className="flex flex-wrap gap-3">
             {categories.map((category) => (
-              <button
+              <motion.button
                 key={category.id}
-                onClick={() => setSelectedCategory(category.id as 'all' | 'custom')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedCategory(category.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   selectedCategory === category.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                    ? 'bg-purple-600 text-white shadow-lg'
+                    : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
                 }`}
               >
-                {category.name} ({category.count})
-              </button>
+                <span className="mr-2">{category.icon}</span>
+                {category.name}
+              </motion.button>
             ))}
           </div>
         </div>
 
         {/* Characters Grid */}
-        {isClient && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {filteredCharacters.map((character) => (
-              <div
-                key={character.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer group"
-              >
-                <div className="relative p-4">
-                  <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 mb-3">
-                    <img
-                      src={character.image}
-                      alt={character.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.src = '/characters/game/PNG/512/1.png';
-                      }}
-                    />
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-gray-900 text-sm truncate">
-                      {character.name}
-                    </h3>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavorite(character.id);
-                      }}
-                      className={`p-1 rounded-full transition-colors ${
-                        favorites.includes(character.id)
-                          ? 'text-red-500'
-                          : 'text-gray-400 hover:text-red-500'
-                      }`}
-                    >
-                      <Heart className={`h-4 w-4 ${favorites.includes(character.id) ? 'fill-current' : ''}`} />
-                    </button>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-1">
-                      <Star className="h-3 w-3 text-yellow-400 fill-current" />
-                      <span className="text-xs text-gray-600">
-                        {character.rating || 4.5}
-                      </span>
-                    </div>
-                    <span className="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-800">
-                      Avatar
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Empty State */}
-        {isClient && filteredCharacters.length === 0 && (
-          <div className="text-center py-12">
-            <Sparkles className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Karakter bulunamadı
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Arama kriterlerinize uygun karakter bulunamadı.
-            </p>
-            <button
-              onClick={() => {
-                setSearchTerm('');
-                setSelectedCategory('all');
-              }}
-              className="text-blue-600 hover:text-blue-700 font-medium"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredCharacters.map((character) => (
+            <motion.div
+              key={character.id}
+              whileHover={{ y: -5 }}
+              className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
             >
-              Tüm karakterleri göster
-            </button>
-          </div>
+              <div className="aspect-square bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center overflow-hidden">
+                <img 
+                  src={character.image} 
+                  alt={character.name}
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  {character.name}
+                </h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  {character.description}
+                </p>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleCharacterSelect(character)}
+                  className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-purple-700 transition-colors"
+                >
+                  Bu Karakteri Seç
+                </motion.button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Selected Character Info */}
+        {selectedCharacter && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-8 bg-white rounded-xl shadow-lg p-6 border border-purple-200"
+          >
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full flex items-center justify-center">
+                <span className="text-2xl">🎭</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">
+                  {selectedCharacter.name} seçildi!
+                </h3>
+                <p className="text-gray-600">
+                  Artık bu karakterle hikaye yazabilirsin.
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link
+                href="/characters/avatar-builder"
+                className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+              >
+                Avatar Builder
+              </Link>
+              <Link
+                href="/stories/create"
+                className="bg-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors"
+              >
+                Hikaye Yazmaya Başla
+              </Link>
+              <Link
+                href="/"
+                className="bg-gray-100 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+              >
+                Ana Sayfaya Dön
+              </Link>
+            </div>
+          </motion.div>
         )}
       </div>
     </div>
