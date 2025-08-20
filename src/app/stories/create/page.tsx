@@ -1,17 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowLeft, Sparkles } from 'lucide-react';
-
-interface Character {
-  id: string;
-  name: string;
-  image: string;
-  category: string;
-  description: string;
-}
 
 const storyThemes = [
   { id: 'fantastik', name: 'Fantastik', icon: '🐉', description: 'Büyülü dünyalar ve yaratıklar' },
@@ -23,21 +14,13 @@ const storyThemes = [
 ];
 
 export default function CreateStoryPage() {
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [selectedTheme, setSelectedTheme] = useState('');
   const [storyTitle, setStoryTitle] = useState('');
   const [storyContent, setStoryContent] = useState('');
   const [isCreating, setIsCreating] = useState(false);
 
-  useEffect(() => {
-    const savedCharacter = localStorage.getItem('selectedCharacter');
-    if (savedCharacter) {
-      setSelectedCharacter(JSON.parse(savedCharacter));
-    }
-  }, []);
-
   const handleCreateStory = async () => {
-    if (!selectedCharacter || !selectedTheme || !storyTitle || !storyContent) {
+    if (!selectedTheme || !storyTitle || !storyContent) {
       alert('Lütfen tüm alanları doldurun!');
       return;
     }
@@ -51,7 +34,6 @@ export default function CreateStoryPage() {
         title: storyTitle,
         theme: selectedTheme,
         content: storyContent,
-        character: selectedCharacter,
         createdAt: new Date().toISOString(),
         author: 'Anonim',
         likeCount: 0,
@@ -84,7 +66,7 @@ export default function CreateStoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-4">
-              <Link href="/characters" className="text-gray-600 hover:text-gray-900">
+              <Link href="/" className="text-gray-600 hover:text-gray-900">
                 <ArrowLeft className="w-6 h-6" />
               </Link>
               <h1 className="text-2xl font-bold text-gray-900">Yeni Hikaye Oluştur</h1>
@@ -97,33 +79,6 @@ export default function CreateStoryPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Selected Character */}
-        {selectedCharacter && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8 bg-white rounded-xl shadow-lg p-6 border border-purple-200"
-          >
-            <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full flex items-center justify-center overflow-hidden">
-                <img 
-                  src={selectedCharacter.image} 
-                  alt={selectedCharacter.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">
-                  Seçilen Karakter: {selectedCharacter.name}
-                </h3>
-                <p className="text-gray-600">
-                  {selectedCharacter.description}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
         {/* Story Creation Form */}
         <div className="space-y-8">
           {/* Theme Selection */}
@@ -131,10 +86,8 @@ export default function CreateStoryPage() {
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Hikaye Teması Seç</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {storyThemes.map((theme) => (
-                <motion.button
+                <button
                   key={theme.id}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedTheme(theme.id)}
                   className={`p-4 rounded-lg border-2 transition-all duration-200 text-left ${
                     selectedTheme === theme.id
@@ -145,7 +98,7 @@ export default function CreateStoryPage() {
                   <div className="text-2xl mb-2">{theme.icon}</div>
                   <div className="font-medium text-gray-900">{theme.name}</div>
                   <div className="text-sm text-gray-600">{theme.description}</div>
-                </motion.button>
+                </button>
               ))}
             </div>
           </div>
@@ -183,13 +136,11 @@ export default function CreateStoryPage() {
 
           {/* Create Button */}
           <div className="flex justify-center">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               onClick={handleCreateStory}
-              disabled={isCreating || !selectedCharacter || !selectedTheme || !storyTitle || !storyContent}
+              disabled={isCreating || !selectedTheme || !storyTitle || !storyContent}
               className={`px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-200 flex items-center space-x-2 ${
-                isCreating || !selectedCharacter || !selectedTheme || !storyTitle || !storyContent
+                isCreating || !selectedTheme || !storyTitle || !storyContent
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-lg'
               }`}
@@ -205,7 +156,7 @@ export default function CreateStoryPage() {
                   <span>Hikayeyi Oluştur</span>
                 </>
               )}
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>

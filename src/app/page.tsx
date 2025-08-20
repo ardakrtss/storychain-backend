@@ -69,13 +69,7 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href="/characters" 
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2"
-              >
-                <span>Karakterini Seç</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+
               <Link 
                 href="/stories/create" 
                 className="border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-purple-50 transition-all duration-200"
