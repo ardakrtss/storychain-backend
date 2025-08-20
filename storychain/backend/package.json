@@ -1,0 +1,40 @@
+{
+  "name": "storychain-backend",
+  "version": "1.0.0",
+  "description": "StoryChain Backend API - Çocuklar için birlikte hikaye yazma platformu",
+  "main": "test-server.js",
+  "scripts": {
+    "start": "node test-server.js",
+    "dev": "nodemon test-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "storychain",
+    "hikaye",
+    "çocuk",
+    "api",
+    "express",
+    "nodejs"
+  ],
+  "author": "StoryChain Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/storychain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/storychain/issues"
+  },
+  "homepage": "https://github.com/yourusername/storychain#readme"
+}
