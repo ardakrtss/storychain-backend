@@ -100,6 +100,21 @@ const stories = [
 
 let storyIdCounter = 4;
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'StoryChain API', 
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth/login',
+      themes: '/api/themes',
+      stories: '/api/stories'
+    }
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'StoryChain API is running' });
