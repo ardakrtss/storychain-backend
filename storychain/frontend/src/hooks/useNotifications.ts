@@ -148,16 +148,19 @@ export function useNotifications() {
             title: 'Yeni hikaye başladı',
             message: 'Yeni bir hikaye başladı. Katılmak ister misiniz?',
             type: 'info' as const,
+            isRead: false,
           },
           {
             title: 'Hikayeniz tamamlandı',
             message: 'Hikayeniz başarıyla tamamlandı!',
             type: 'success' as const,
+            isRead: false,
           },
           {
             title: 'Yeni yorum',
             message: 'Hikayenize yeni bir yorum geldi.',
             type: 'info' as const,
+            isRead: false,
           },
         ];
 
